@@ -48,7 +48,10 @@ const FirebaseLogin = ({ ...others }) => {
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const customization = useSelector((state) => state.customization);
     const [checked, setChecked] = useState(true);
-
+    const storage = (param) => {
+        localStorage.setItem('user', JSON.stringify(param));
+        setUser(param);
+    };
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -87,7 +90,7 @@ const FirebaseLogin = ({ ...others }) => {
                                 setErrors({ submit: res.data.msg });
                                 setSubmitting(false);
                             } else {
-                                setUser(res.data);
+                                storage(res.data);
                                 setStatus({ success: true });
                                 setSubmitting(false);
                                 navigation('dash/workers');

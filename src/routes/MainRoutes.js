@@ -23,7 +23,7 @@ const UtilsTablerIcons = Loadable(lazy(() => import('views/utilities/TablerIcons
 
 const ProtectedRoute = () => {
     const { user } = useStateContext();
-
+    console.log(user);
     if (!user) {
         return <Navigate to={'/'} />;
     }

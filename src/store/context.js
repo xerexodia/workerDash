@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const StateContext = createContext({
     user: null,
@@ -6,9 +6,14 @@ const StateContext = createContext({
 });
 
 const DashContext = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
-    return <StateContext.Provider value={{ user, setUser }}>{children}</StateContext.Provider>;
+    const logout = async () => {
+        await localStorage.removeItem('user');
+        setUser(null);
+    };
+
+    return <StateContext.Provider value={{ user, setUser, logout }}>{children}</StateContext.Provider>;
 };
 
 export default DashContext;
